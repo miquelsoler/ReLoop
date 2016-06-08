@@ -11,6 +11,7 @@
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
 		24B475D09D396FD37823F959 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = 998154314347A01197567C72 /* test.c */; };
 		2A63205E1D08260500689A9B /* MSResolumeOSCSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A63205C1D08260500689A9B /* MSResolumeOSCSender.cpp */; };
+		2A6320671D083B6F00689A9B /* MSActiveArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6320651D083B6F00689A9B /* MSActiveArea.cpp */; };
 		2A6A03C81D081B2A006DB9C9 /* MSAppSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A03C61D081B2A006DB9C9 /* MSAppSettings.cpp */; };
 		483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78D67A00EB899FAC09430597 /* ofxLabel.cpp */; };
 		4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AED834CE4DEC5260AF302A2 /* ofxOscParameterSync.cpp */; };
@@ -94,6 +95,9 @@
 		2A63205A1D08246500689A9B /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = bin/data; sourceTree = "<group>"; };
 		2A63205C1D08260500689A9B /* MSResolumeOSCSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSResolumeOSCSender.cpp; sourceTree = "<group>"; };
 		2A63205D1D08260500689A9B /* MSResolumeOSCSender.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MSResolumeOSCSender.hpp; sourceTree = "<group>"; };
+		2A6320651D083B6F00689A9B /* MSActiveArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSActiveArea.cpp; sourceTree = "<group>"; };
+		2A6320661D083B6F00689A9B /* MSActiveArea.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MSActiveArea.hpp; sourceTree = "<group>"; };
+		2A6320681D083FE700689A9B /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		2A6A03C61D081B2A006DB9C9 /* MSAppSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSAppSettings.cpp; sourceTree = "<group>"; };
 		2A6A03C71D081B2A006DB9C9 /* MSAppSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MSAppSettings.hpp; sourceTree = "<group>"; };
 		2B40EDA85BEB63E46785BC29 /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
@@ -460,6 +464,9 @@
 				2A63205D1D08260500689A9B /* MSResolumeOSCSender.hpp */,
 				2A6A03C61D081B2A006DB9C9 /* MSAppSettings.cpp */,
 				2A6A03C71D081B2A006DB9C9 /* MSAppSettings.hpp */,
+				2A6320651D083B6F00689A9B /* MSActiveArea.cpp */,
+				2A6320661D083B6F00689A9B /* MSActiveArea.hpp */,
+				2A6320681D083FE700689A9B /* Defines.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -607,6 +614,7 @@
 				FDECA5A17A0A695D9A003790 /* ofxBezierWarp.cpp in Sources */,
 				6EE9DF63C92D4502CA752FC9 /* ofxLaserManager.cpp in Sources */,
 				8E8059AF6BB655C2DB94A908 /* ofxLaserQuadWarp.cpp in Sources */,
+				2A6320671D083B6F00689A9B /* MSActiveArea.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
