@@ -21,6 +21,9 @@ public:
     void update();
     void draw();
 
+    void drawFacade();
+    void drawInfo();
+
     void keyReleased(int key);
     void mouseMoved(int x, int y );
     void mouseDragged(int x, int y, int button);
@@ -44,4 +47,7 @@ private:
     int myoPort;
 
     ofxLaser::Manager laser;
+
+    bool shouldDrawFacade;
+    ofImage imgFacade;
 };

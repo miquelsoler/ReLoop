@@ -17,6 +17,8 @@ void ofApp::setup()
         myoPort = MSAppSettings::getInstance().getMyoPort();
     }
 
+    imgFacade = ofImage("Facade.png");
+
     state = StateSelectGenre;
 
     resolumeOSCSender = new MSResolumeOSCSender(resolumeHost, resolumePort);
@@ -59,9 +61,26 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+    drawFacade();
+    drawInfo();
+}
+
+//--------------------------------------------------------------
+void ofApp::drawFacade()
+{
+    if (shouldDrawFacade) imgFacade.draw(0, 0, ofGetWidth(), ofGetHeight());
+}
+
+//--------------------------------------------------------------
+void ofApp::drawInfo()
+{
     ofPushStyle();
     {
         int x = 10;
+
+        ofSetColor(100, 100, 100, 200);
+        ofDrawRectangle(0, ofGetHeight()-100, 300, ofGetHeight()-1);
+
         string stateMsg;
         switch(state)
         {
@@ -70,9 +89,10 @@ void ofApp::draw()
             default:                    break;
         }
         int windowHeight = ofGetHeight();
-        ofSetColor(ofColor::darkorange);
+        ofSetColor(ofColor::orange);
         ofDrawBitmapString("State:         " + stateMsg, x, windowHeight - 75);
-        ofSetColor(ofColor::darkGreen);
+
+        ofSetColor(ofColor::green);
         ofDrawBitmapString("Resolume Host: " + resolumeHost, x, windowHeight - 40);
         ofDrawBitmapString("Resolume Port: " + ofToString(resolumePort), x, windowHeight - 25);
         ofDrawBitmapString("MYO Port:      " + ofToString(myoPort), x, windowHeight - 10);
@@ -87,6 +107,7 @@ void ofApp::keyReleased(int key)
     {
         case '1':   setStateGenre(); break;
         case '2':   setStateWindows(); break;
+        case 'f':   shouldDrawFacade = !shouldDrawFacade;
         default:    break;
     }
 }
@@ -133,3 +154,4 @@ void ofApp::setStateWindows()
 {
     state = StateSelectWindows;
 }
+
