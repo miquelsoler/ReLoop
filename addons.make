@@ -1,0 +1,6 @@
+ofxEtherdream
+ofxGui
+ofxIlda
+ofxLaser
+ofxOsc
+ofxXmlSettings

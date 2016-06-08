@@ -1,0 +1,5 @@
+<AppSettings>
+    <ResolumeHost>localhost</ResolumeHost>
+    <ResolumePort>30301</ResolumePort>
+    <MyoPort>30302</MyoPort>
+</AppSettings>
