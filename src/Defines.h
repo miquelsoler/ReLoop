@@ -11,6 +11,6 @@
 
 const unsigned int  W_WIDTH         = 1200;
 const unsigned int  W_HEIGHT        = 1900;
-const float         W_SCALEFACTOR   = 0.5;
+const float         W_SCALE         = 0.5;
 
 #endif /* Defines_h */

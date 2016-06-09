@@ -2,15 +2,16 @@
 
 #include "ofMain.h"
 #include "ofxOsc.h"
+#include "ofxLaserManager.h"
 
 #include "MSResolumeOSCSender.hpp"
-#include "ofxLaserManager.h"
+#include "MSActiveArea.hpp"
 
 typedef enum
 {
-    StateSelectGenre = 0,
-    StateSelectWindows = 1
-} RLState;
+    SceneSelectGenre = 0,
+    ScenePickWindows = 1
+} RLScene;
 
 
 class ofApp : public ofBaseApp
@@ -30,15 +31,19 @@ public:
 private:
 
     void drawFacade();
+    void drawPickAreas();
     void drawInfo();
 
     void setStateGenre();
     void setStateWindows();
 
     void showLaserEffect(int effectNumber);
+    void startLaser(int x, int y);
+    void stopLaser(int x, int y);
+    void coordinatesToLaser(int x, int y);
 
-    // App state
-    RLState state;
+    // App scene
+    RLScene scene;
 
     // OSC
     ofxOscReceiver myoOSCReceiver;
@@ -55,6 +60,10 @@ private:
     ofxPanel laserGui;
     vector<ofPolyline> laserPolylines;
     bool drawingShape = false;
+
+    // Active areas
+    vector<MSActiveArea> genreAreas;
+    vector<MSActiveArea> windowAreas;
 
     // Look
     bool showLaserGui = true;

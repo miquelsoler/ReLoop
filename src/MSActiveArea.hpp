@@ -15,13 +15,12 @@ class MSActiveArea
 {
 public:
 
-    MSActiveArea(int id, float x, float y, float w, float h);
-
-private:
+    MSActiveArea(int id, int x, int y, int w, int h, float scaleFactor);
+    bool isPointInside(int px, int py);
 
     int id;
-    float x, y;
-    float w, h;
+    int x, y;
+    int w, h;
 };
 
 
@@ -30,24 +29,24 @@ private:
 // Genre selection
 /// UL
 /// x = 65
-/// y = 467
+/// y = 422
 /// w = 386
 /// h = 224
 /// UR
 /// x = 744
-/// y = 467
+/// y = 422
 /// w = 386
 /// h = 224
 /// DL
 /// x = 65
-/// h = 856
-/// w = 386
-/// y = 467
+/// y = 854
+/// w = 224
+/// h = 386
 /// DR
 /// x = 907
-/// h = 856
-/// h = 224
-/// w = 386
+/// y = 854
+/// w = 224
+/// h = 386
 
 
 // Windows

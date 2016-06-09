@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 281.0, 79.0, 1412.0, 831.0 ],
+		"rect" : [ 234.0, 79.0, 1412.0, 831.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -1804,7 +1804,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 281.0, 105.0, 1412.0, 805.0 ],
+						"rect" : [ 234.0, 105.0, 1412.0, 805.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1878,9 +1878,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 433.0, 273.0, 76.0, 22.0 ],
+									"patching_rect" : [ 433.0, 273.0, 66.0, 22.0 ],
 									"style" : "",
-									"text" : "/mouse/stop"
+									"text" : "/laser/stop"
 								}
 
 							}
@@ -1891,9 +1891,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 515.0, 273.0, 77.0, 22.0 ],
+									"patching_rect" : [ 515.0, 273.0, 67.0, 22.0 ],
 									"style" : "",
-									"text" : "/mouse/start"
+									"text" : "/laser/start"
 								}
 
 							}
@@ -1930,9 +1930,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 32.0, 210.0, 118.0, 22.0 ],
+									"patching_rect" : [ 32.0, 210.0, 108.0, 22.0 ],
 									"style" : "",
-									"text" : "/mouse/position/ 2 2"
+									"text" : "/laser/position/ 2 2"
 								}
 
 							}
@@ -1995,9 +1995,9 @@
 									"numinlets" : 3,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 154.0, 247.0, 141.0, 22.0 ],
+									"patching_rect" : [ 154.0, 247.0, 127.0, 22.0 ],
 									"style" : "",
-									"text" : "pak /mouse/position 0 0"
+									"text" : "pak /laser/position 0 0"
 								}
 
 							}
@@ -2009,7 +2009,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 154.0, 277.0, 147.0, 22.0 ],
 									"style" : "",
-									"text" : "udpsend 127.0.0.1 12345"
+									"text" : "udpsend 127.0.0.1 30302"
 								}
 
 							}
