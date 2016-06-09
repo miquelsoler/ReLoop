@@ -22,21 +22,20 @@ public:
     void draw();
     void exit();
 
-    void drawFacade();
-    void drawInfo();
-
     void keyReleased(int key);
-    void mouseMoved(int x, int y );
     void mouseDragged(int x, int y, int button);
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
-    void mouseEntered(int x, int y);
-    void mouseExited(int x, int y);
 
 private:
 
+    void drawFacade();
+    void drawInfo();
+
     void setStateGenre();
     void setStateWindows();
+
+    void showLaserEffect(int effectNumber);
 
     // App state
     RLState state;
@@ -54,9 +53,11 @@ private:
     int laserWidth;
     int laserHeight;
     ofxPanel laserGui;
+    vector<ofPolyline> laserPolylines;
+    bool drawingShape = false;
 
     // Look
-    bool showLaserGui;
-    bool showFacade;
+    bool showLaserGui = true;
+    bool showFacade = false;
     ofImage imgFacade;
 };

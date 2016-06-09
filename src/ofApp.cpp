@@ -24,17 +24,11 @@ void ofApp::setup()
         laserEnabled = MSAppSettings::getInstance().getLaserEnabled();
     }
 
-    imgFacade = ofImage("Facade.png");
-
-    state = StateSelectGenre;
-
-    resolumeOSCSender = new MSResolumeOSCSender(resolumeHost, resolumePort);
-    myoOSCReceiver.setup(myoPort);
-
+    // Laser
     if (laserEnabled)
     {
-        laserWidth = 800;
-        laserHeight = 800;
+        laserWidth = 400;
+        laserHeight = 400;
 
         laser.setup(laserWidth, laserHeight);
         laser.connectToEtherdream();
@@ -48,36 +42,48 @@ void ofApp::setup()
         laserGui.setWidthElements(LASER_GUI_WIDTH);
 
         laserGui.loadFromFile(STR_LASERSETTINGS_FILENAME);
-
-        showLaserGui = true;
     }
+
+    // OSC
+    {
+        resolumeOSCSender = new MSResolumeOSCSender(resolumeHost, resolumePort);
+        myoOSCReceiver.setup(myoPort);
+    }
+
+    imgFacade = ofImage("Facade.png");
+
+    state = StateSelectGenre;
 }
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
     int posX, posY;
-    
+
+    if (laserEnabled) {
+        showLaserEffect(0);
+        laser.update();
+    }
+
+    // Myo events
+
     while (myoOSCReceiver.hasWaitingMessages())
     {
         ofxOscMessage m;
         myoOSCReceiver.getNextMessage(m);
 
-        if (m.getAddress() == "/mouse/position")
-        {
+        if (m.getAddress() == "/mouse/position") {
             posX = m.getArgAsInt32(0);
             posY = m.getArgAsInt32(1);
             cout << "Laser pos: " << posX << " " << posY << endl;
         }
-        else if(m.getAddress() == "/mouse/start")
-        {
+        else if(m.getAddress() == "/mouse/start") {
             cout << "Mouse start" << endl;
 //            posX = m.getArgAsInt32(0);
 //            posX = m.getArgAsInt32(1);
 //            startLaser(m.getArgAsInt32(0),m.getArgAsInt32(1));
         }
-        else if (m.getAddress() == "/mouse/stop")
-        {
+        else if (m.getAddress() == "/mouse/stop") {
             cout << "Mouse stop" << endl;
 //            mouseX = m.getArgAsInt32(0);
 //            mouseY = m.getArgAsInt32(1);
@@ -92,6 +98,8 @@ void ofApp::draw()
     drawFacade();
     drawInfo();
 
+    if (laserEnabled) laser.draw();
+
     if (laserEnabled && showLaserGui){
         laserGui.setPosition(ofGetWidth() - laserGui.getWidth() - 10, 10);
         laserGui.draw();
@@ -104,6 +112,49 @@ void ofApp::exit()
     if (laserEnabled)
         laserGui.saveToFile(STR_LASERSETTINGS_FILENAME);
 }
+
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key)
+{
+    switch (key)
+    {
+        case '1':   setStateGenre(); break;
+        case '2':   setStateWindows(); break;
+        case 'f':   showFacade = !showFacade; break;
+        case 'g':   showLaserGui = !showLaserGui; break;
+        default:    break;
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseDragged(int x, int y, int button)
+{
+    if (!drawingShape) return;
+
+    ofPolyline &poly = laserPolylines.back();
+    poly.addVertex(x, y);
+}
+
+//--------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button)
+{
+    laserPolylines.push_back(ofPolyline());
+    drawingShape = true;
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseReleased(int x, int y, int button)
+{
+    if (!drawingShape) return;
+
+    ofPolyline &poly = laserPolylines.back();
+    poly = poly.getSmoothed(2);
+    drawingShape = false;
+
+    // TODO add dot if the line is super short
+}
+
+#pragma mark - Custom drawing
 
 //--------------------------------------------------------------
 void ofApp::drawFacade()
@@ -140,59 +191,25 @@ void ofApp::drawInfo()
     ofPopStyle();
 }
 
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key)
-{
-    switch (key)
-    {
-        case '1':   setStateGenre(); break;
-        case '2':   setStateWindows(); break;
-        case 'f':   showFacade = !showFacade; break;
-        case 'g':   showLaserGui = !showLaserGui; break;
-        default:    break;
-    }
-}
+#pragma mark - State changes
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y )
-{
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button)
-{
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button)
-{
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y)
-{
-
-}
-
 void ofApp::setStateGenre()
 {
     state = StateSelectGenre;
 }
 
+//--------------------------------------------------------------
 void ofApp::setStateWindows()
 {
     state = StateSelectWindows;
 }
 
+#pragma mark - Laser
+
+void ofApp::showLaserEffect(int effectnum)
+{
+    for (int i=0; i<laserPolylines.size(); ++i) {
+        laser.addLaserPolyline(laserPolylines[i], ofColor::red);
+    }
+}

@@ -10,7 +10,7 @@
 		<laser_on_during_move>0</laser_on_during_move>
 		<preview_laser>1</preview_laser>
 		<preview_laser_path>1</preview_laser_path>
-		<move_speed>6</move_speed>
+		<move_speed>13.4949</move_speed>
 		<move_points_padding>1</move_points_padding>
 		<shape_pre_blank_points>1</shape_pre_blank_points>
 		<shape_post_blank_points>1</shape_post_blank_points>
