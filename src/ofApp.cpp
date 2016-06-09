@@ -169,8 +169,8 @@ void ofApp::drawInfo()
     {
         int x = 10;
 
-        ofSetColor(100, 100, 100, 200);
-        ofDrawRectangle(0, ofGetHeight()-100, 300, ofGetHeight()-1);
+        ofSetColor(100, 50, 50, 200);
+        ofDrawRectangle(0, ofGetHeight()-100, 240, ofGetHeight()-1);
 
         string stateMsg;
         switch(state)
@@ -179,14 +179,20 @@ void ofApp::drawInfo()
             case StateSelectWindows:    stateMsg = "Select Windows"; break;
             default:                    break;
         }
-        int windowHeight = ofGetHeight();
-        ofSetColor(ofColor::orange);
-        ofDrawBitmapString("State:         " + stateMsg, x, windowHeight - 75);
 
-        ofSetColor(ofColor::green);
-        ofDrawBitmapString("Resolume Host: " + resolumeHost, x, windowHeight - 40);
-        ofDrawBitmapString("Resolume Port: " + ofToString(resolumePort), x, windowHeight - 25);
-        ofDrawBitmapString("MYO Port:      " + ofToString(myoPort), x, windowHeight - 10);
+        int windowHeight = ofGetHeight();
+
+        ofSetColor(ofColor::gray);
+        ofDrawBitmapString("Resolume Host: " + resolumeHost, x, windowHeight - 80);
+        ofDrawBitmapString("Resolume Port: " + ofToString(resolumePort), x, windowHeight - 65);
+        ofDrawBitmapString("MYO Port:      " + ofToString(myoPort), x, windowHeight - 50);
+
+        ofSetColor(ofColor::orange);
+        ofDrawBitmapString("State:         " + stateMsg, x, windowHeight - 25);
+
+        ofSetColor(ofColor(0,255,0));
+        ofDrawBitmapString(ofToString(roundf(ofGetFrameRate())) + "fps", x, windowHeight - 10);
+
     }
     ofPopStyle();
 }
