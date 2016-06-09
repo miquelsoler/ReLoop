@@ -5,6 +5,13 @@
 
 int main( )
 {
-	ofSetupOpenGL(W_WIDTH * W_SCALEFACTOR, W_HEIGHT * W_SCALEFACTOR, OF_WINDOW);
-	ofRunApp(new ofApp());
+    ofGLFWWindowSettings windowSettings;
+    windowSettings.width = int(W_WIDTH * W_SCALEFACTOR);
+    windowSettings.height = int(W_HEIGHT * W_SCALEFACTOR);
+    windowSettings.windowMode = OF_WINDOW;
+    windowSettings.resizable = false;
+
+    ofCreateWindow(windowSettings);
+
+    return ofRunApp(new ofApp);
 }

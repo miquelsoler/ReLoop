@@ -20,6 +20,7 @@ public:
     void setup();
     void update();
     void draw();
+    void exit();
 
     void drawFacade();
     void drawInfo();
@@ -37,17 +38,25 @@ private:
     void setStateGenre();
     void setStateWindows();
 
+    // App state
     RLState state;
 
+    // OSC
     ofxOscReceiver myoOSCReceiver;
     MSResolumeOSCSender *resolumeOSCSender;
-
     string resolumeHost;
     int resolumePort;
     int myoPort;
 
+    // Laser
+    bool laserEnabled;
     ofxLaser::Manager laser;
+    int laserWidth;
+    int laserHeight;
+    ofxPanel laserGui;
 
-    bool shouldDrawFacade;
+    // Look
+    bool showLaserGui;
+    bool showFacade;
     ofImage imgFacade;
 };

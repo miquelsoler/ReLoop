@@ -3,6 +3,10 @@
 #include "MsAppSettings.hpp"
 
 static const string STR_APPSETTINGS_FILENAME = "AppSettings.xml";
+static const string STR_LASERSETTINGS_FILENAME = "LaserSettings.xml";
+
+static const int LASER_GUI_WIDTH = 240;
+
 
 //--------------------------------------------------------------
 void ofApp::setup()
@@ -12,9 +16,12 @@ void ofApp::setup()
     // Load app settings
     {
         MSAppSettings::getInstance().loadFile(STR_APPSETTINGS_FILENAME);
+
         resolumeHost = MSAppSettings::getInstance().getResolumeHost();
         resolumePort = MSAppSettings::getInstance().getResolumePort();
         myoPort = MSAppSettings::getInstance().getMyoPort();
+
+        laserEnabled = MSAppSettings::getInstance().getLaserEnabled();
     }
 
     imgFacade = ofImage("Facade.png");
@@ -23,6 +30,27 @@ void ofApp::setup()
 
     resolumeOSCSender = new MSResolumeOSCSender(resolumeHost, resolumePort);
     myoOSCReceiver.setup(myoPort);
+
+    if (laserEnabled)
+    {
+        laserWidth = 800;
+        laserHeight = 800;
+
+        laser.setup(laserWidth, laserHeight);
+        laser.connectToEtherdream();
+
+        laserGui.setup();
+        laserGui.add(laser.parameters);
+
+        laserGui.add(laser.redParams);
+        laserGui.add(laser.greenParams);
+        laserGui.add(laser.blueParams);
+        laserGui.setWidthElements(LASER_GUI_WIDTH);
+
+        laserGui.loadFromFile(STR_LASERSETTINGS_FILENAME);
+
+        showLaserGui = true;
+    }
 }
 
 //--------------------------------------------------------------
@@ -63,12 +91,24 @@ void ofApp::draw()
 {
     drawFacade();
     drawInfo();
+
+    if (laserEnabled && showLaserGui){
+        laserGui.setPosition(ofGetWidth() - laserGui.getWidth() - 10, 10);
+        laserGui.draw();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::exit()
+{
+    if (laserEnabled)
+        laserGui.saveToFile(STR_LASERSETTINGS_FILENAME);
 }
 
 //--------------------------------------------------------------
 void ofApp::drawFacade()
 {
-    if (shouldDrawFacade) imgFacade.draw(0, 0, ofGetWidth(), ofGetHeight());
+    if (showFacade) imgFacade.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
 //--------------------------------------------------------------
@@ -107,7 +147,8 @@ void ofApp::keyReleased(int key)
     {
         case '1':   setStateGenre(); break;
         case '2':   setStateWindows(); break;
-        case 'f':   shouldDrawFacade = !shouldDrawFacade;
+        case 'f':   showFacade = !showFacade; break;
+        case 'g':   showLaserGui = !showLaserGui; break;
         default:    break;
     }
 }

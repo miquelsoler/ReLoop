@@ -26,6 +26,7 @@ public:
     string getResolumeHost()        { return resolumeHost; };
     int getResolumePort()           { return resolumePort; };
     int getMyoPort()                { return myoPort; };
+    bool getLaserEnabled()          { return laserEnabled; };
 
 private:
 
@@ -34,6 +35,7 @@ private:
     string  resolumeHost;
     int     resolumePort;
     int     myoPort;
+    bool    laserEnabled;
 };
 
 #endif /* MSAppSettings_hpp */

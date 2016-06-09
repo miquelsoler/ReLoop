@@ -2,4 +2,6 @@
     <ResolumeHost>localhost</ResolumeHost>
     <ResolumePort>30301</ResolumePort>
     <MyoPort>12345</MyoPort>
+    
+    <LaserEnabled>true</LaserEnabled>
 </AppSettings>
