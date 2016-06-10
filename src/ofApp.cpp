@@ -379,4 +379,9 @@ void ofApp::pickArea(int x, int y)
         }
         default: break;
     }
+
+    if (!found) return;
+
+    // layer, clip (num finestra, pista)
+    resolumeOSCSender->enableClip(areaIndex + 1, 1, true);
 }
