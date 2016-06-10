@@ -2,6 +2,7 @@
     <ResolumeHost>localhost</ResolumeHost>
     <ResolumePort>30301</ResolumePort>
     <MyoPort>30302</MyoPort>
-    <LaserEnabled>true</LaserEnabled>
     <MouseEnabled>true</MouseEnabled>
+    <LaserEnabled>true</LaserEnabled>
+    <LaserLength>100</LaserLength>
 </AppSettings>

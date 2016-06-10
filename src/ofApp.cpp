@@ -30,8 +30,9 @@ void ofApp::setup()
         resolumeHost = MSAppSettings::getInstance().getResolumeHost();
         resolumePort = MSAppSettings::getInstance().getResolumePort();
         myoPort = MSAppSettings::getInstance().getMyoPort();
-        laserEnabled = MSAppSettings::getInstance().getLaserEnabled();
         mouseEnabled = MSAppSettings::getInstance().getMouseEnabled();
+        laserEnabled = MSAppSettings::getInstance().getLaserEnabled();
+        laserLength = MSAppSettings::getInstance().getLaserLength();
     }
 
     // Laser
@@ -96,8 +97,6 @@ void ofApp::setup()
 
 void ofApp::update()
 {
-    int posX, posY;
-
     if (laserEnabled) {
         showLaserEffect(0);
         laser.update();
@@ -111,22 +110,19 @@ void ofApp::update()
         myoOSCReceiver.getNextMessage(m);
 
         if (m.getAddress() == "/laser/position") {
-            posX += (m.getArgAsInt32(0) - posX)*0.2;
-            posY += (m.getArgAsInt32(1) - posY)*0.2;
-            coordinatesToLaser(posX, posY);
-            cout << "Laser moved: " << posX << " " << posY << endl;
+            laserX += (m.getArgAsInt32(0) - laserX) * 0.2;
+            laserY += (m.getArgAsInt32(1) - laserY) * 0.2;
+            coordinatesToLaser(laserX, laserY);
         }
         else if(m.getAddress() == "/laser/start") {
-            cout << "Laser started" << endl;
-            posX = m.getArgAsInt32(0);
-            posX = m.getArgAsInt32(1);
-            startLaser(posX, posY);
+//            laserX = m.getArgAsInt32(0);
+//            laserY = m.getArgAsInt32(1);
+            startLaser(laserX, laserY);
         }
         else if (m.getAddress() == "/laser/stop") {
-            cout << "Laser stopped" << endl;
-            posX = m.getArgAsInt32(0);
-            posY = m.getArgAsInt32(1);
-            stopLaser(posX, posY);
+//            laserX = m.getArgAsInt32(0);
+//            laserY = m.getArgAsInt32(1);
+            stopLaser(laserX, laserY);
         }
     }
 }
@@ -177,6 +173,10 @@ void ofApp::mouseDragged(int x, int y, int button)
 
     ofPolyline &poly = laserPolylines.back();
     poly.addVertex(x, y);
+
+//    laserX += (x - laserX) * 0.2;
+//    laserY += (y - laserY) * 0.2;
+//    coordinatesToLaser(laserX, laserY);
 }
 
 ///--------------------------------------------------------------
@@ -187,6 +187,10 @@ void ofApp::mousePressed(int x, int y, int button)
 
     laserPolylines.push_back(ofPolyline());
     drawingShape = true;
+
+//    laserX = x;
+//    laserY = y;
+//    startLaser(laserX, laserY);
 }
 
 ///--------------------------------------------------------------
@@ -201,6 +205,10 @@ void ofApp::mouseReleased(int x, int y, int button)
     drawingShape = false;
 
     // TODO add dot if the line is super short
+
+//    laserX = x;
+//    laserY = y;
+//    stopLaser(laserX, laserY);
 }
 
 #pragma mark - Custom drawing
@@ -316,6 +324,7 @@ void ofApp::startLaser(int x, int y)
 
 void ofApp::stopLaser(int x, int y)
 {
+    cout << "Stop laser" << endl;
     ofPolyline &poly = laserPolylines.back();
     poly = poly.getSmoothed(2);
     drawingShape = false;
@@ -331,9 +340,10 @@ void ofApp::coordinatesToLaser(int x, int y)
     if (laserPolylines.size() < 1) return;
 
     ofPolyline &poly = laserPolylines.back();
-    //if(poly.getofVec3f end =poly.getVertices().back();
-    //if(ofDist(x, y, end.x, end.y) > 5) {
-    //poly.simplify();
+
+    if (poly.size() > laserLength)
+        poly.getVertices().erase(poly.getVertices().begin());
+
     poly.addVertex(x, y);
 }
 

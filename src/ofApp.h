@@ -62,6 +62,8 @@ private:
     ofxPanel laserGui;
     vector<ofPolyline> laserPolylines;
     bool drawingShape = false;
+    int laserX, laserY;
+    int laserLength;
 
     // Active areas
     vector<MSActiveArea> genreAreas;
