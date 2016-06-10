@@ -37,8 +37,8 @@ void ofApp::setup()
     // Laser
     if (laserEnabled)
     {
-        laserWidth = 400;
-        laserHeight = 400;
+        laserWidth = W_WIDTH * W_SCALE;
+        laserHeight = W_HEIGHT * W_SCALE;
 
         laser.setup(laserWidth, laserHeight);
         laser.connectToEtherdream();
@@ -110,19 +110,19 @@ void ofApp::update()
         ofxOscMessage m;
         myoOSCReceiver.getNextMessage(m);
 
-        if (m.getAddress() == "/mouse/position") {
-            posX = m.getArgAsInt32(0);
-            posY = m.getArgAsInt32(1);
+        if (m.getAddress() == "/laser/position") {
+            posX += (m.getArgAsInt32(0) - posX)*0.2;
+            posY += (m.getArgAsInt32(1) - posY)*0.2;
             coordinatesToLaser(posX, posY);
             cout << "Laser moved: " << posX << " " << posY << endl;
         }
-        else if(m.getAddress() == "/mouse/start") {
+        else if(m.getAddress() == "/laser/start") {
             cout << "Laser started" << endl;
             posX = m.getArgAsInt32(0);
             posX = m.getArgAsInt32(1);
             startLaser(posX, posY);
         }
-        else if (m.getAddress() == "/mouse/stop") {
+        else if (m.getAddress() == "/laser/stop") {
             cout << "Laser stopped" << endl;
             posX = m.getArgAsInt32(0);
             posY = m.getArgAsInt32(1);
@@ -209,7 +209,7 @@ void ofApp::mouseReleased(int x, int y, int button)
 
 void ofApp::drawFacade()
 {
-    if (showFacade) imgFacade.draw(0, 0, ofGetWidth(), ofGetHeight());
+    if (showFacade) imgFacade.draw(0, 0, ofGetWidth() - (W_RIGHTPANEL_WIDTH * W_SCALE), ofGetHeight());
 }
 
 ///--------------------------------------------------------------
@@ -335,4 +335,10 @@ void ofApp::coordinatesToLaser(int x, int y)
     //if(ofDist(x, y, end.x, end.y) > 5) {
     //poly.simplify();
     poly.addVertex(x, y);
+}
+
+///--------------------------------------------------------------
+
+void ofApp::pickArea(int x, int y)
+{
 }

@@ -42,6 +42,8 @@ private:
     void stopLaser(int x, int y);
     void coordinatesToLaser(int x, int y);
 
+    void pickArea(int x, int y);
+
     // App scene
     RLScene scene;
 
