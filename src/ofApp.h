@@ -65,6 +65,9 @@ private:
     vector<MSActiveArea> genreAreas;
     vector<MSActiveArea> windowAreas;
 
+    // Mouse
+    bool mouseEnabled;
+
     // Look
     bool showLaserGui = true;
     bool showFacade = false;

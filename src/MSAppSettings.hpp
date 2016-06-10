@@ -27,6 +27,7 @@ public:
     int getResolumePort()           { return resolumePort; };
     int getMyoPort()                { return myoPort; };
     bool getLaserEnabled()          { return laserEnabled; };
+    bool getMouseEnabled()          { return mouseEnabled; };
 
 private:
 
@@ -36,6 +37,7 @@ private:
     int     resolumePort;
     int     myoPort;
     bool    laserEnabled;
+    bool    mouseEnabled;
 };
 
 #endif /* MSAppSettings_hpp */

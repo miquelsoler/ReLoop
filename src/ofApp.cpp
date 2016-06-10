@@ -17,7 +17,8 @@ static const int WDW_WIDTH = 106;
 static const int WDW_HEIGHT = 186;
 static const int WDW_Y = 192;
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::setup()
 {
     ofBackground(ofColor::black);
@@ -29,8 +30,8 @@ void ofApp::setup()
         resolumeHost = MSAppSettings::getInstance().getResolumeHost();
         resolumePort = MSAppSettings::getInstance().getResolumePort();
         myoPort = MSAppSettings::getInstance().getMyoPort();
-
         laserEnabled = MSAppSettings::getInstance().getLaserEnabled();
+        mouseEnabled = MSAppSettings::getInstance().getMouseEnabled();
     }
 
     // Laser
@@ -59,9 +60,9 @@ void ofApp::setup()
         myoOSCReceiver.setup(myoPort);
     }
 
-    // Areas
+    // Pick Areas
     {
-        // Genre areas
+        // Genre Areas
         {
             // Up-left
             genreAreas.push_back(MSActiveArea(0, 65, 422, GEN_TOP_WIDTH, GEN_TOP_HEIGHT, W_SCALE));
@@ -73,7 +74,7 @@ void ofApp::setup()
             genreAreas.push_back(MSActiveArea(3, 907, 854, GEN_BOTTOM_WIDTH, GEN_BOTTOM_HEIGHT, W_SCALE));
         }
 
-        // Window areas
+        // Window Areas
         {
             windowAreas.push_back(MSActiveArea(0, 10, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
             windowAreas.push_back(MSActiveArea(1, 160, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
@@ -91,7 +92,8 @@ void ofApp::setup()
     scene = SceneSelectGenre;
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::update()
 {
     int posX, posY;
@@ -101,7 +103,7 @@ void ofApp::update()
         laser.update();
     }
 
-    // Myo events
+    // Manage Myo events
 
     while (myoOSCReceiver.hasWaitingMessages())
     {
@@ -129,7 +131,8 @@ void ofApp::update()
     }
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::draw()
 {
     drawFacade();
@@ -138,20 +141,21 @@ void ofApp::draw()
 
     if (laserEnabled) laser.draw();
 
-    if (laserEnabled && showLaserGui){
+    if (laserEnabled && showLaserGui) {
         laserGui.setPosition(ofGetWidth() - laserGui.getWidth() - 10, 10);
         laserGui.draw();
     }
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::exit()
 {
-    if (laserEnabled)
-        laserGui.saveToFile(STR_LASERSETTINGS_FILENAME);
+    if (laserEnabled) laserGui.saveToFile(STR_LASERSETTINGS_FILENAME);
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::keyReleased(int key)
 {
     switch (key)
@@ -164,25 +168,32 @@ void ofApp::keyReleased(int key)
     }
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::mouseDragged(int x, int y, int button)
 {
+    if (!mouseEnabled) return;
     if (!drawingShape) return;
 
     ofPolyline &poly = laserPolylines.back();
     poly.addVertex(x, y);
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::mousePressed(int x, int y, int button)
 {
+    if (!mouseEnabled) return;
+
     laserPolylines.push_back(ofPolyline());
     drawingShape = true;
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::mouseReleased(int x, int y, int button)
 {
+    if (!mouseEnabled) return;
     if (!drawingShape) return;
 
     ofPolyline &poly = laserPolylines.back();
@@ -194,11 +205,14 @@ void ofApp::mouseReleased(int x, int y, int button)
 
 #pragma mark - Custom drawing
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::drawFacade()
 {
     if (showFacade) imgFacade.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
+
+///--------------------------------------------------------------
 
 void ofApp::drawPickAreas()
 {
@@ -226,7 +240,8 @@ void ofApp::drawPickAreas()
     ofPopStyle();
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::drawInfo()
 {
     ofPushStyle();
@@ -263,13 +278,15 @@ void ofApp::drawInfo()
 
 #pragma mark - State changes
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::setStateGenre()
 {
     scene = SceneSelectGenre;
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::setStateWindows()
 {
     scene = ScenePickWindows;
@@ -277,7 +294,8 @@ void ofApp::setStateWindows()
 
 #pragma mark - Laser
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::showLaserEffect(int effectnum)
 {
     for (int i=0; i<laserPolylines.size(); ++i) {
@@ -285,7 +303,8 @@ void ofApp::showLaserEffect(int effectnum)
     }
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::startLaser(int x, int y)
 {
     cout << "Start laser" << endl;
@@ -293,7 +312,8 @@ void ofApp::startLaser(int x, int y)
     drawingShape = true;
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::stopLaser(int x, int y)
 {
     ofPolyline &poly = laserPolylines.back();
@@ -303,7 +323,8 @@ void ofApp::stopLaser(int x, int y)
     // TODO add dot if the line is super short
 }
 
-//--------------------------------------------------------------
+///--------------------------------------------------------------
+
 void ofApp::coordinatesToLaser(int x, int y)
 {
     // Make sure there's at least 1 polyline.
