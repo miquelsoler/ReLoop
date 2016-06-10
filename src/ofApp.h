@@ -9,7 +9,7 @@
 
 typedef enum
 {
-    SceneSelectGenre = 0,
+    ScenePickGenre = 0,
     ScenePickWindows = 1
 } RLScene;
 

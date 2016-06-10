@@ -90,7 +90,7 @@ void ofApp::setup()
 
     imgFacade = ofImage("Facade.png");
 
-    scene = SceneSelectGenre;
+    scene = ScenePickGenre;
 }
 
 ///--------------------------------------------------------------
@@ -188,6 +188,8 @@ void ofApp::mousePressed(int x, int y, int button)
     laserPolylines.push_back(ofPolyline());
     drawingShape = true;
 
+    pickArea(x, y);
+
 //    laserX = x;
 //    laserY = y;
 //    startLaser(laserX, laserY);
@@ -231,7 +233,7 @@ void ofApp::drawPickAreas()
 
     switch(scene)
     {
-        case SceneSelectGenre:
+        case ScenePickGenre:
         {
             for (int i=0; i<genreAreas.size(); ++i)
                 ofDrawRectangle(genreAreas[i].x, genreAreas[i].y, genreAreas[i].w, genreAreas[i].h);
@@ -262,7 +264,7 @@ void ofApp::drawInfo()
         string stateMsg;
         switch(scene)
         {
-            case SceneSelectGenre:      stateMsg = "Select Genre"; break;
+            case ScenePickGenre:      stateMsg = "Select Genre"; break;
             case ScenePickWindows:    stateMsg = "Select Windows"; break;
             default:                    break;
         }
@@ -290,7 +292,7 @@ void ofApp::drawInfo()
 
 void ofApp::setStateGenre()
 {
-    scene = SceneSelectGenre;
+    scene = ScenePickGenre;
 }
 
 ///--------------------------------------------------------------
@@ -325,18 +327,19 @@ void ofApp::startLaser(int x, int y)
 void ofApp::stopLaser(int x, int y)
 {
     cout << "Stop laser" << endl;
-    ofPolyline &poly = laserPolylines.back();
-    poly = poly.getSmoothed(2);
-    drawingShape = false;
+    if (laserPolylines.size() < 1) return;
 
-    // TODO add dot if the line is super short
+    laserPolylines.clear();
+
+//    ofPolyline &poly = laserPolylines.back();
+//    poly = poly.getSmoothed(2);
+    drawingShape = false;
 }
 
 ///--------------------------------------------------------------
 
 void ofApp::coordinatesToLaser(int x, int y)
 {
-    // Make sure there's at least 1 polyline.
     if (laserPolylines.size() < 1) return;
 
     ofPolyline &poly = laserPolylines.back();
@@ -351,4 +354,29 @@ void ofApp::coordinatesToLaser(int x, int y)
 
 void ofApp::pickArea(int x, int y)
 {
+    bool found = false;
+    int areaIndex = -1;
+
+    switch (scene)
+    {
+        case ScenePickGenre:
+        {
+            for (int i=0; i<genreAreas.size() && !found; ++i) {
+                found = genreAreas[i].isPointInside(x, y);
+                if (found) areaIndex = i;
+            }
+            if (found) cout << "Picked genre " << areaIndex << endl;
+            break;
+        }
+        case ScenePickWindows:
+        {
+            for (int i=0; i<windowAreas.size() && !found; ++i) {
+                found = windowAreas[i].isPointInside(x, y);
+                if (found) areaIndex = i;
+            }
+            if (found) cout << "Picked window " << areaIndex << endl;
+            break;
+        }
+        default: break;
+    }
 }
