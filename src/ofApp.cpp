@@ -92,7 +92,7 @@ void ofApp::setup()
 
     imgFacade = ofImage("Facade.png");
 
-    scene = ScenePickGenre;
+    setStateGenre();
 }
 
 ///--------------------------------------------------------------
@@ -316,12 +316,16 @@ void ofApp::drawInfo()
 void ofApp::setStateGenre()
 {
     scene = ScenePickGenre;
+
+    resolumeOSCSender->startBaseVideo();
 }
 
 ///--------------------------------------------------------------
 
 void ofApp::setStateWindows()
 {
+    resolumeOSCSender->stopBaseVideo();
+
     scene = ScenePickWindows;
     windowsSceneStartTime = ofGetElapsedTimef();
     windowsSceneRemainingTime = windowsSceneMaxDuration;
@@ -329,6 +333,8 @@ void ofApp::setStateWindows()
 
 void ofApp::setStateEnd()
 {
+    resolumeOSCSender->stopGenre();
+
     scene = SceneEnd;
     endingStartTime = ofGetElapsedTimef();
     endingRemainingTime = endingDuration;
@@ -387,33 +393,39 @@ void ofApp::coordinatesToLaser(int x, int y)
 void ofApp::pickArea(int x, int y)
 {
     bool found = false;
-    int areaIndex = -1;
+    unsigned int areaIndex = 0;
 
     switch (scene)
     {
         case ScenePickGenre:
         {
-            for (int i=0; i<genreAreas.size() && !found; ++i) {
+            for (unsigned int i=0; i<genreAreas.size() && !found; ++i) {
                 found = genreAreas[i].isPointInside(x, y);
                 if (found) areaIndex = i;
             }
 
             if (found) {
-                genreIndex = areaIndex;
+                switch(areaIndex) {
+                    case 0: genreIndex = GenreElectronica; break;
+                    case 1: genreIndex = GenreFunk; break;
+                    case 2: genreIndex = GenreHiphop; break;
+                    case 3: genreIndex = GenreJazz; break;
+                    default: break;
+                }
                 setStateWindows();
+                resolumeOSCSender->startGenre(genreIndex);
             }
             break;
         }
         case ScenePickWindows:
         {
-            for (int i=0; i<windowAreas.size() && !found; ++i) {
+            for (unsigned int i=0; i<windowAreas.size() && !found; ++i) {
                 found = windowAreas[i].isPointInside(x, y);
                 if (found) areaIndex = i;
             }
 
             if (found) {
-                // layer, clip (num finestra, pista)
-                resolumeOSCSender->enableClip(areaIndex + 1, 1, true);
+                resolumeOSCSender->onWindowTouched(areaIndex + 1);
             }
             break;
         }

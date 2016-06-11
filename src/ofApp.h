@@ -51,7 +51,7 @@ private:
     float windowsSceneStartTime;
     int windowsSceneMaxDuration;
     float windowsSceneRemainingTime;
-    unsigned int genreIndex;
+    RLGenreIndex genreIndex;
     float endingStartTime;
     int endingDuration;
     float endingRemainingTime;
