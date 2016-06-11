@@ -33,6 +33,8 @@ void ofApp::setup()
         mouseEnabled = MSAppSettings::getInstance().getMouseEnabled();
         laserEnabled = MSAppSettings::getInstance().getLaserEnabled();
         laserLength = MSAppSettings::getInstance().getLaserLength();
+        windowsSceneMaxDuration = MSAppSettings::getInstance().getWindowsSceneMaxDuration();
+        endingDuration = MSAppSettings::getInstance().getEndingDuration();
     }
 
     // Laser
@@ -125,6 +127,24 @@ void ofApp::update()
             stopLaser(laserX, laserY);
         }
     }
+
+    // Manage scene changes
+
+    switch (scene) {
+        case ScenePickWindows: {
+            windowsSceneRemainingTime = windowsSceneMaxDuration - (ofGetElapsedTimef() - windowsSceneStartTime);
+            if (ofGetElapsedTimef() - windowsSceneStartTime > float(windowsSceneMaxDuration))
+                setStateEnd();
+            break;
+        }
+        case SceneEnd: {
+            endingRemainingTime = endingDuration - (ofGetElapsedTimef() - endingStartTime);
+            if (ofGetElapsedTimef() - endingStartTime > float(endingDuration))
+                setStateGenre();
+            break;
+        }
+        default: break;
+    }
 }
 
 ///--------------------------------------------------------------
@@ -158,6 +178,7 @@ void ofApp::keyReleased(int key)
     {
         case '1':   setStateGenre(); break;
         case '2':   setStateWindows(); break;
+        case '3':   setStateEnd(); break;
         case 'g':   showLaserGui = !showLaserGui; break;
         case 'f':   showFacade = !showFacade; break;
         default:    break;
@@ -245,6 +266,7 @@ void ofApp::drawPickAreas()
                 ofDrawRectangle(windowAreas[i].x, windowAreas[i].y, windowAreas[i].w, windowAreas[i].h);
             break;
         }
+        default: break;
     }
 
     ofPopStyle();
@@ -259,14 +281,15 @@ void ofApp::drawInfo()
         int x = 10;
 
         ofSetColor(100, 50, 50, 200);
-        ofDrawRectangle(0, ofGetHeight()-100, 270, ofGetHeight()-1);
+        ofDrawRectangle(0, ofGetHeight()-100, 380, ofGetHeight()-1);
 
-        string stateMsg;
+        stringstream stateMsg;
         switch(scene)
         {
-            case ScenePickGenre:      stateMsg = "Select Genre"; break;
-            case ScenePickWindows:    stateMsg = "Select Windows"; break;
-            default:                    break;
+            case ScenePickGenre:    stateMsg << "Select Genre"; break;
+            case ScenePickWindows:  stateMsg << "Select Windows (time left: " << int(windowsSceneRemainingTime) << ")"; break;
+            case SceneEnd:          stateMsg << "Ending (time left: " << int(endingRemainingTime) << ")"; break;
+            default:                break;
         }
 
         int windowHeight = ofGetHeight();
@@ -277,7 +300,7 @@ void ofApp::drawInfo()
         ofDrawBitmapString("MYO Port:      " + ofToString(myoPort), x, windowHeight - 50);
 
         ofSetColor(ofColor::orange);
-        ofDrawBitmapString("State:         " + stateMsg, x, windowHeight - 25);
+        ofDrawBitmapString("State:         " + stateMsg.str(), x, windowHeight - 25);
 
         ofSetColor(ofColor(0,255,0));
         ofDrawBitmapString(ofToString(roundf(ofGetFrameRate())) + "fps", x, windowHeight - 10);
@@ -300,6 +323,15 @@ void ofApp::setStateGenre()
 void ofApp::setStateWindows()
 {
     scene = ScenePickWindows;
+    windowsSceneStartTime = ofGetElapsedTimef();
+    windowsSceneRemainingTime = windowsSceneMaxDuration;
+}
+
+void ofApp::setStateEnd()
+{
+    scene = SceneEnd;
+    endingStartTime = ofGetElapsedTimef();
+    endingRemainingTime = endingDuration;
 }
 
 #pragma mark - Laser
@@ -365,7 +397,11 @@ void ofApp::pickArea(int x, int y)
                 found = genreAreas[i].isPointInside(x, y);
                 if (found) areaIndex = i;
             }
-            if (found) cout << "Picked genre " << areaIndex << endl;
+
+            if (found) {
+                genreIndex = areaIndex;
+                setStateWindows();
+            }
             break;
         }
         case ScenePickWindows:
@@ -374,14 +410,15 @@ void ofApp::pickArea(int x, int y)
                 found = windowAreas[i].isPointInside(x, y);
                 if (found) areaIndex = i;
             }
-            if (found) cout << "Picked window " << areaIndex << endl;
+
+            if (found) {
+                // layer, clip (num finestra, pista)
+                resolumeOSCSender->enableClip(areaIndex + 1, 1, true);
+            }
             break;
         }
         default: break;
     }
 
     if (!found) return;
-
-    // layer, clip (num finestra, pista)
-    resolumeOSCSender->enableClip(areaIndex + 1, 1, true);
 }

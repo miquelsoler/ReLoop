@@ -3,6 +3,8 @@
     <ResolumePort>30301</ResolumePort>
     <MyoPort>30302</MyoPort>
     <MouseEnabled>true</MouseEnabled>
-    <LaserEnabled>true</LaserEnabled>
+    <LaserEnabled>false</LaserEnabled>
     <LaserLength>100</LaserLength>
+    <WindowsSceneMaxDuration>120</WindowsSceneMaxDuration>
+    <EndingDuration>10</EndingDuration>
 </AppSettings>

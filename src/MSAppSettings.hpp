@@ -23,12 +23,14 @@ public:
 
     bool loadFile(string filename);
 
-    string getResolumeHost()        { return resolumeHost; };
-    int getResolumePort()           { return resolumePort; };
-    int getMyoPort()                { return myoPort; };
-    bool getMouseEnabled()          { return mouseEnabled; };
-    bool getLaserEnabled()          { return laserEnabled; };
-    int getLaserLength()            { return laserLength; };
+    string getResolumeHost()            { return resolumeHost; };
+    int getResolumePort()               { return resolumePort; };
+    int getMyoPort()                    { return myoPort; };
+    bool getMouseEnabled()              { return mouseEnabled; };
+    bool getLaserEnabled()              { return laserEnabled; };
+    int getLaserLength()                { return laserLength; };
+    int getWindowsSceneMaxDuration()    { return windowsSceneMaxDuration; };
+    int getEndingDuration()             { return endingDuration; };
 
 private:
 
@@ -40,6 +42,8 @@ private:
     bool    laserEnabled;
     bool    mouseEnabled;
     int     laserLength;
+    int windowsSceneMaxDuration;
+    int endingDuration;
 };
 
 #endif /* MSAppSettings_hpp */
