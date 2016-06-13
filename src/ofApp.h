@@ -11,7 +11,7 @@ typedef enum
 {
     ScenePickGenre = 0,
     ScenePickWindows = 1,
-    SceneEnd = 2
+//    SceneEnd = 2
 } RLScene;
 
 
@@ -37,7 +37,7 @@ private:
 
     void setStateGenre();
     void setStateWindows();
-    void setStateEnd();
+//    void setStateEnd();
 
     void showLaserEffect(int effectNumber);
     void startLaser(int x, int y);
@@ -48,13 +48,13 @@ private:
 
     // App scenes
     RLScene scene;
-    float windowsSceneStartTime;
-    int windowsSceneMaxDuration;
-    float windowsSceneRemainingTime;
+//    float windowsSceneStartTime;
+//    int windowsSceneMaxDuration;
+//    float windowsSceneRemainingTime;
     RLGenreIndex genreIndex;
-    float endingStartTime;
-    int endingDuration;
-    float endingRemainingTime;
+//    float endingStartTime;
+//    int endingDuration;
+//    float endingRemainingTime;
 
     // OSC
     ofxOscReceiver myoOSCReceiver;

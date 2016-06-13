@@ -33,8 +33,8 @@ void ofApp::setup()
         mouseEnabled = MSAppSettings::getInstance().getMouseEnabled();
         laserEnabled = MSAppSettings::getInstance().getLaserEnabled();
         laserLength = MSAppSettings::getInstance().getLaserLength();
-        windowsSceneMaxDuration = MSAppSettings::getInstance().getWindowsSceneMaxDuration();
-        endingDuration = MSAppSettings::getInstance().getEndingDuration();
+//        windowsSceneMaxDuration = MSAppSettings::getInstance().getWindowsSceneMaxDuration();
+//        endingDuration = MSAppSettings::getInstance().getEndingDuration();
     }
 
     // Laser
@@ -128,23 +128,23 @@ void ofApp::update()
         }
     }
 
-    // Manage scene changes
-
-    switch (scene) {
-        case ScenePickWindows: {
-            windowsSceneRemainingTime = windowsSceneMaxDuration - (ofGetElapsedTimef() - windowsSceneStartTime);
-            if (ofGetElapsedTimef() - windowsSceneStartTime > float(windowsSceneMaxDuration))
-                setStateEnd();
-            break;
-        }
-        case SceneEnd: {
-            endingRemainingTime = endingDuration - (ofGetElapsedTimef() - endingStartTime);
-            if (ofGetElapsedTimef() - endingStartTime > float(endingDuration))
-                setStateGenre();
-            break;
-        }
-        default: break;
-    }
+//    // Manage scene changes
+//
+//    switch (scene) {
+//        case ScenePickWindows: {
+//            windowsSceneRemainingTime = windowsSceneMaxDuration - (ofGetElapsedTimef() - windowsSceneStartTime);
+//            if (ofGetElapsedTimef() - windowsSceneStartTime > float(windowsSceneMaxDuration))
+//                setStateEnd();
+//            break;
+//        }
+//        case SceneEnd: {
+//            endingRemainingTime = endingDuration - (ofGetElapsedTimef() - endingStartTime);
+//            if (ofGetElapsedTimef() - endingStartTime > float(endingDuration))
+//                setStateGenre();
+//            break;
+//        }
+//        default: break;
+//    }
 }
 
 ///--------------------------------------------------------------
@@ -178,7 +178,7 @@ void ofApp::keyReleased(int key)
     {
         case '1':   setStateGenre(); break;
         case '2':   setStateWindows(); break;
-        case '3':   setStateEnd(); break;
+//        case '3':   setStateEnd(); break;
         case 'g':   showLaserGui = !showLaserGui; break;
         case 'f':   showFacade = !showFacade; break;
         default:    break;
@@ -287,8 +287,9 @@ void ofApp::drawInfo()
         switch(scene)
         {
             case ScenePickGenre:    stateMsg << "Select Genre"; break;
-            case ScenePickWindows:  stateMsg << "Select Windows (time left: " << int(windowsSceneRemainingTime) << ")"; break;
-            case SceneEnd:          stateMsg << "Ending (time left: " << int(endingRemainingTime) << ")"; break;
+//            case ScenePickWindows:  stateMsg << "Select Windows (time left: " << int(windowsSceneRemainingTime) << ")"; break;
+            case ScenePickWindows:  stateMsg << "Select Windows"; break;
+//            case SceneEnd:          stateMsg << "Ending (time left: " << int(endingRemainingTime) << ")"; break;
             default:                break;
         }
 
@@ -327,18 +328,18 @@ void ofApp::setStateWindows()
     resolumeOSCSender->stopBaseVideo();
 
     scene = ScenePickWindows;
-    windowsSceneStartTime = ofGetElapsedTimef();
-    windowsSceneRemainingTime = windowsSceneMaxDuration;
+//    windowsSceneStartTime = ofGetElapsedTimef();
+//    windowsSceneRemainingTime = windowsSceneMaxDuration;
 }
 
-void ofApp::setStateEnd()
-{
-    resolumeOSCSender->stopGenre();
-
-    scene = SceneEnd;
-    endingStartTime = ofGetElapsedTimef();
-    endingRemainingTime = endingDuration;
-}
+//void ofApp::setStateEnd()
+//{
+//    resolumeOSCSender->stopGenre();
+//
+//    scene = SceneEnd;
+//    endingStartTime = ofGetElapsedTimef();
+//    endingRemainingTime = endingDuration;
+//}
 
 #pragma mark - Laser
 

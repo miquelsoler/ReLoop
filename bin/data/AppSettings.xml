@@ -5,6 +5,4 @@
     <MouseEnabled>true</MouseEnabled>
     <LaserEnabled>false</LaserEnabled>
     <LaserLength>100</LaserLength>
-    <WindowsSceneMaxDuration>120</WindowsSceneMaxDuration>
-    <EndingDuration>10</EndingDuration>
 </AppSettings>

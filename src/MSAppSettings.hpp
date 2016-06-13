@@ -29,8 +29,6 @@ public:
     bool getMouseEnabled()              { return mouseEnabled; };
     bool getLaserEnabled()              { return laserEnabled; };
     int getLaserLength()                { return laserLength; };
-    int getWindowsSceneMaxDuration()    { return windowsSceneMaxDuration; };
-    int getEndingDuration()             { return endingDuration; };
 
 private:
 
@@ -42,8 +40,6 @@ private:
     bool    laserEnabled;
     bool    mouseEnabled;
     int     laserLength;
-    int windowsSceneMaxDuration;
-    int endingDuration;
 };
 
 #endif /* MSAppSettings_hpp */
