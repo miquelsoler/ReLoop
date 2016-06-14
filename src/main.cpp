@@ -6,7 +6,8 @@
 int main( )
 {
     ofGLFWWindowSettings windowSettings;
-    windowSettings.width = int((W_WIDTH + W_RIGHTPANEL_WIDTH) * W_SCALE);
+//    windowSettings.width = int((W_WIDTH + W_RIGHTPANEL_WIDTH) * W_SCALE);
+    windowSettings.width = int(W_WIDTH * W_SCALE);
     windowSettings.height = int(W_HEIGHT * W_SCALE);
     windowSettings.windowMode = OF_WINDOW;
     windowSettings.resizable = false;

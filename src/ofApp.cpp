@@ -4,18 +4,21 @@
 #include "MsAppSettings.hpp"
 
 static const string STR_APPSETTINGS_FILENAME = "AppSettings.xml";
-static const string STR_LASERSETTINGS_FILENAME = "LaserSettings.xml";
 
+static const string STR_LASERSETTINGS_FILENAME = "LaserSettings.xml";
 static const int LASER_GUI_WIDTH = 240;
 
-static const int GEN_TOP_WIDTH = 386;
-static const int GEN_TOP_HEIGHT = 224;
-static const int GEN_BOTTOM_WIDTH = GEN_TOP_HEIGHT;
-static const int GEN_BOTTOM_HEIGHT = GEN_TOP_WIDTH;
+static const string STR_FACADEGUI_TITLE = "Facade";
+static const string STR_FACADESETTINGS_FILENAME = "FacadeSettings.xml";
 
-static const int WDW_WIDTH = 106;
-static const int WDW_HEIGHT = 186;
-static const int WDW_Y = 192;
+static const float GEN_TOP_WIDTH = 0.321667;
+static const float GEN_TOP_HEIGHT = 0.117895;
+static const float GEN_BOTTOM_WIDTH = 0.186667;
+static const float GEN_BOTTOM_HEIGHT = 0.203158;
+
+static const float WDW_WIDTH = 0.088333;
+static const float WDW_HEIGHT = 0.097895;
+static const float WDW_Y = 0.101053;
 
 ///--------------------------------------------------------------
 
@@ -59,6 +62,37 @@ void ofApp::setup()
         laserGui.loadFromFile(STR_LASERSETTINGS_FILENAME);
     }
 
+    // Facade
+    {
+        facadeParams.setName("Facade");
+        facadeParams.add(facadeX.set("X", 0, 0, ofGetWidth()));
+        facadeParams.add(facadeY.set("Y", 0, 0, ofGetHeight()));
+        facadeParams.add(facadeW.set("Width", ofGetWidth()/2, 0, ofGetWidth()));
+        facadeParams.add(facadeH.set("Height", ofGetHeight()/2, 0, ofGetWidth()));
+
+//        parameters.setName("Laser Manager");
+//
+//        connectButton.set("Etherdream connect");
+//        connectButton.addListener(this, &Manager ::connectButtonPressed);
+//
+//        //parameters.add(connectButton.set("connect etherdream", false));
+//
+//        //parameters.add(etherdreamStatus.set("", "test"));
+//
+//        parameters.add(intensity.set("intensity", 1, 0, 1));
+//
+//        parameters.add(testPattern.set("test pattern", 0, 0, numTestPatterns));
+//        //parameters.add(delay.set("sync delay", 0, 0, 0.4));
+//        parameters.add(pps.set("points per second", 30000, 5000, 100000));
+//        
+//        pps.addListener(this, &Manager ::roundPPS);
+
+
+        facadeGui.setup(STR_FACADEGUI_TITLE, STR_FACADESETTINGS_FILENAME);
+        facadeGui.add(facadeParams);
+        facadeGui.loadFromFile(STR_FACADESETTINGS_FILENAME);
+    }
+
     // OSC
     {
         resolumeOSCSender = new MSResolumeOSCSender(resolumeHost, resolumePort);
@@ -70,29 +104,29 @@ void ofApp::setup()
         // Genre Areas
         {
             // Up-left
-            genreAreas.push_back(MSActiveArea(0, 65, 422, GEN_TOP_WIDTH, GEN_TOP_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(0, 0.054167, 0.222105, GEN_TOP_WIDTH, GEN_TOP_HEIGHT, W_SCALE));
             // Up-right
-            genreAreas.push_back(MSActiveArea(1, 744, 422, GEN_TOP_WIDTH, GEN_TOP_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(1, 0.620000, 0.222105, GEN_TOP_WIDTH, GEN_TOP_HEIGHT, W_SCALE));
             // Down-left
-            genreAreas.push_back(MSActiveArea(2, 65, 854, GEN_BOTTOM_WIDTH, GEN_BOTTOM_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(2, 0.054167, 0.449474, GEN_BOTTOM_WIDTH, GEN_BOTTOM_HEIGHT, W_SCALE));
             // Down-right
-            genreAreas.push_back(MSActiveArea(3, 907, 854, GEN_BOTTOM_WIDTH, GEN_BOTTOM_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(3, 0.755833, 0.449474, GEN_BOTTOM_WIDTH, GEN_BOTTOM_HEIGHT, W_SCALE));
         }
 
         // Window Areas
         {
-            windowAreas.push_back(MSActiveArea(0, 10, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(1, 160, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(2, 312, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(3, 466, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(4, 618, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(5, 768, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(6, 916, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(7, 1066, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(0, 0.008333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(1, 0.133333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(2, 0.260000, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(3, 0.388333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(4, 0.515000, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(5, 0.640000, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(6, 0.763333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(7, 0.888333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
         }
     }
 
-    imgFacade = ofImage("Facade.png");
+    facadeImage = ofImage("Facade.png");
 
     isDoingClickEffect = false;
 
@@ -177,6 +211,8 @@ void ofApp::draw()
         laserGui.setPosition(ofGetWidth() - laserGui.getWidth() - 10, 10);
         laserGui.draw();
     }
+
+    facadeGui.draw();
 }
 
 ///--------------------------------------------------------------
@@ -254,7 +290,9 @@ void ofApp::mouseReleased(int x, int y, int button)
 
 void ofApp::drawFacade()
 {
-    if (showFacade) imgFacade.draw(0, 0, ofGetWidth() - (W_RIGHTPANEL_WIDTH * W_SCALE), ofGetHeight());
+    if (showFacade)
+        facadeImage.draw(facadeX, facadeY, facadeW, facadeH);
+//        imgFacade.draw(0, 300, ofGetWidth() - (W_RIGHTPANEL_WIDTH * W_SCALE), ofGetHeight());
 }
 
 ///--------------------------------------------------------------
@@ -271,13 +309,19 @@ void ofApp::drawPickAreas()
         case ScenePickGenre:
         {
             for (int i=0; i<genreAreas.size(); ++i)
-                ofDrawRectangle(genreAreas[i].x, genreAreas[i].y, genreAreas[i].w, genreAreas[i].h);
+                ofDrawRectangle(facadeX + (genreAreas[i].x * facadeW),
+                                facadeY + (genreAreas[i].y * facadeH),
+                                genreAreas[i].w * facadeW,
+                                genreAreas[i].h * facadeH);
             break;
         }
         case ScenePickWindows:
         {
             for (int i=0; i<windowAreas.size(); ++i)
-                ofDrawRectangle(windowAreas[i].x, windowAreas[i].y, windowAreas[i].w, windowAreas[i].h);
+                ofDrawRectangle(facadeX + (windowAreas[i].x * facadeW),
+                                facadeY + (windowAreas[i].y * facadeH),
+                                windowAreas[i].w * facadeW,
+                                windowAreas[i].h * facadeH);
             break;
         }
         default: break;
@@ -422,7 +466,7 @@ void ofApp::pickArea(int x, int y)
         case ScenePickGenre:
         {
             for (unsigned int i=0; i<genreAreas.size() && !found; ++i) {
-                found = genreAreas[i].isPointInside(x, y);
+                found = genreAreas[i].isPointInside(float(x - facadeX) / float(facadeW), float(y - facadeY) / float(facadeH));
                 if (found) areaIndex = i;
             }
 
@@ -436,18 +480,21 @@ void ofApp::pickArea(int x, int y)
                 }
                 setStateWindows();
                 resolumeOSCSender->startGenre(genreIndex);
+
+                cout << "Picked " << genreIndex << endl;
             }
             break;
         }
         case ScenePickWindows:
         {
             for (unsigned int i=0; i<windowAreas.size() && !found; ++i) {
-                found = windowAreas[i].isPointInside(x, y);
+                found = windowAreas[i].isPointInside(float(x - facadeX) / float(facadeW), float(y - facadeY) / float(facadeH));
                 if (found) areaIndex = i;
             }
 
             if (found) {
                 resolumeOSCSender->onWindowTouched(areaIndex + 1);
+                cout << "Picked " << areaIndex << endl;
             }
             break;
         }

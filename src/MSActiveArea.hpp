@@ -15,12 +15,12 @@ class MSActiveArea
 {
 public:
 
-    MSActiveArea(int id, int x, int y, int w, int h, float scaleFactor);
-    bool isPointInside(int px, int py);
+    MSActiveArea(int id, float x, float y, float w, float h, float scaleFactor);
+    bool isPointInside(float px, float py);
 
     int id;
-    int x, y;
-    int w, h;
+    float x, y;
+    float w, h;
 };
 
 
@@ -62,6 +62,7 @@ public:
 //// 768
 //// 916
 //// 1066
+
 
 
 #endif /* MSActiveArea_hpp */

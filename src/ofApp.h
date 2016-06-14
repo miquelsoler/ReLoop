@@ -68,7 +68,6 @@ private:
     ofxLaser::Manager laser;
     int laserWidth;
     int laserHeight;
-    ofxPanel laserGui;
     vector<ofPolyline> laserPolylines;
     bool drawingShape = false;
     int laserX, laserY;
@@ -80,6 +79,9 @@ private:
     int clickEffectRadius;
     int clickEffectX, clickEffectY;
 
+    ofxPanel laserGui;
+    bool showLaserGui = true;
+
     // Active areas
     vector<MSActiveArea> genreAreas;
     vector<MSActiveArea> windowAreas;
@@ -87,8 +89,16 @@ private:
     // Mouse
     bool mouseEnabled;
 
-    // Look
-    bool showLaserGui = true;
-    bool showFacade = false;
-    ofImage imgFacade;
+    // Facade
+    ofImage facadeImage;
+
+    ofxPanel facadeGui;
+
+    ofParameterGroup facadeParams;
+    ofParameter<int> facadeX;
+    ofParameter<int> facadeY;
+    ofParameter<int> facadeW;
+    ofParameter<int> facadeH;
+
+    bool showFacade = true;
 };
