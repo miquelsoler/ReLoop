@@ -29,6 +29,8 @@ public:
     bool getMouseEnabled()              { return mouseEnabled; };
     bool getLaserEnabled()              { return laserEnabled; };
     int getLaserLength()                { return laserLength; };
+    float getClickEffectTime()          { return clickEffectTime; };
+    int getClickEffectRadius()          { return clickEffectRadius; };
 
 private:
 
@@ -40,6 +42,8 @@ private:
     bool    laserEnabled;
     bool    mouseEnabled;
     int     laserLength;
+    float   clickEffectTime;
+    int     clickEffectRadius;
 };
 
 #endif /* MSAppSettings_hpp */

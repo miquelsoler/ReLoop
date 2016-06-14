@@ -35,13 +35,15 @@ void ofApp::setup()
         laserLength = MSAppSettings::getInstance().getLaserLength();
 //        windowsSceneMaxDuration = MSAppSettings::getInstance().getWindowsSceneMaxDuration();
 //        endingDuration = MSAppSettings::getInstance().getEndingDuration();
+        clickEffectTime = MSAppSettings::getInstance().getClickEffectTime();
+        clickEffectRadius = MSAppSettings::getInstance().getClickEffectRadius();
     }
 
     // Laser
     if (laserEnabled)
     {
-        laserWidth = W_WIDTH * W_SCALE;
-        laserHeight = W_HEIGHT * W_SCALE;
+        laserWidth = int(float(W_WIDTH * W_SCALE));
+        laserHeight = int(float(W_HEIGHT * W_SCALE));
 
         laser.setup(laserWidth, laserHeight);
         laser.connectToEtherdream();
@@ -92,6 +94,8 @@ void ofApp::setup()
 
     imgFacade = ofImage("Facade.png");
 
+    isDoingClickEffect = false;
+
     setStateGenre();
 }
 
@@ -112,9 +116,9 @@ void ofApp::update()
         myoOSCReceiver.getNextMessage(m);
 
         if (m.getAddress() == "/laser/position") {
-            laserX += (m.getArgAsInt32(0) - laserX) * 0.2;
-            laserY += (m.getArgAsInt32(1) - laserY) * 0.2;
-            coordinatesToLaser(laserX, laserY);
+                laserX += (m.getArgAsInt32(0) - laserX) * 0.2;
+                laserY += (m.getArgAsInt32(1) - laserY) * 0.2;
+                coordinatesToLaser(laserX, laserY);
         }
         else if(m.getAddress() == "/laser/start") {
 //            laserX = m.getArgAsInt32(0);
@@ -122,9 +126,22 @@ void ofApp::update()
             startLaser(laserX, laserY);
         }
         else if (m.getAddress() == "/laser/stop") {
-//            laserX = m.getArgAsInt32(0);
-//            laserY = m.getArgAsInt32(1);
-            stopLaser(laserX, laserY);
+            pickArea(laserX, laserY);
+////            laserX = m.getArgAsInt32(0);
+////            laserY = m.getArgAsInt32(1);
+//            stopLaser(laserX, laserY);
+        }
+    }
+
+    if (isDoingClickEffect) {
+        float deltaTime = ofGetElapsedTimef() - clickStartTime;
+        if (deltaTime < clickEffectTime) {
+            float radius = ofMap(deltaTime, 0, clickEffectTime, clickEffectRadius, 0);
+            cout << "Radius: " << radius << endl;
+//            float radius = explosionRadius * (deltaTime / explosionMaxTime);
+            laser.addLaserCircle(ofPoint(clickEffectX, clickEffectY), radius, ofColor::red);
+        } else {
+            isDoingClickEffect = false;
         }
     }
 
@@ -226,8 +243,6 @@ void ofApp::mouseReleased(int x, int y, int button)
     ofPolyline &poly = laserPolylines.back();
     poly = poly.getSmoothed(2);
     drawingShape = false;
-
-    // TODO add dot if the line is super short
 
 //    laserX = x;
 //    laserY = y;
@@ -395,6 +410,12 @@ void ofApp::pickArea(int x, int y)
 {
     bool found = false;
     unsigned int areaIndex = 0;
+
+    isDoingClickEffect = true;
+    clickStartTime = ofGetElapsedTimef();
+    clickEffectX = x;
+    clickEffectY = y;
+//            windowsSceneRemainingTime = windowsSceneMaxDuration - (ofGetElapsedTimef() - windowsSceneStartTime);
 
     switch (scene)
     {

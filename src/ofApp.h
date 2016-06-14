@@ -74,6 +74,12 @@ private:
     int laserX, laserY;
     int laserLength;
 
+    bool isDoingClickEffect;
+    float clickStartTime;
+    float clickEffectTime;
+    int clickEffectRadius;
+    int clickEffectX, clickEffectY;
+
     // Active areas
     vector<MSActiveArea> genreAreas;
     vector<MSActiveArea> windowAreas;

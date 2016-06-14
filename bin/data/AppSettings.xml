@@ -3,6 +3,8 @@
     <ResolumePort>30301</ResolumePort>
     <MyoPort>30302</MyoPort>
     <MouseEnabled>true</MouseEnabled>
-    <LaserEnabled>false</LaserEnabled>
-    <LaserLength>100</LaserLength>
+    <LaserEnabled>true</LaserEnabled>
+    <LaserLength>5</LaserLength>
+    <ClickEffectTime>0.15</ClickEffectTime>
+    <ClickEffectRadius>30</ClickEffectRadius>
 </AppSettings>
