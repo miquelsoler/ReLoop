@@ -137,7 +137,6 @@ void ofApp::update()
         float deltaTime = ofGetElapsedTimef() - clickStartTime;
         if (deltaTime < clickEffectTime) {
             float radius = ofMap(deltaTime, 0, clickEffectTime, clickEffectRadius, 0);
-            cout << "Radius: " << radius << endl;
 //            float radius = explosionRadius * (deltaTime / explosionMaxTime);
             laser.addLaserCircle(ofPoint(clickEffectX, clickEffectY), radius, ofColor::red);
         } else {
@@ -333,6 +332,7 @@ void ofApp::setStateGenre()
 {
     scene = ScenePickGenre;
 
+    resolumeOSCSender->stopGenre();
     resolumeOSCSender->startBaseVideo();
 }
 
