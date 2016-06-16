@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "ofMain.h"
+#include "ofxXmlSettings.h"
 
 class MSAppSettings
 {
@@ -22,7 +23,7 @@ public:
     }
 
     bool loadFile(string filename);
-
+    
     string getResolumeHost()            { return resolumeHost; };
     int getResolumePort()               { return resolumePort; };
     int getMyoPort()                    { return myoPort; };
@@ -36,6 +37,8 @@ private:
 
     void createSettingsFile(string filename);
 
+    ofxXmlSettings settings;
+    
     string  resolumeHost;
     int     resolumePort;
     int     myoPort;

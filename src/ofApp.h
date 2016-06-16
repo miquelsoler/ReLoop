@@ -45,7 +45,7 @@ private:
     void coordinatesToLaser(int x, int y);
 
     void pickArea(int x, int y);
-
+    
     // App scenes
     RLScene scene;
 //    float windowsSceneStartTime;

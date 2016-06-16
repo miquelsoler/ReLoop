@@ -7,7 +7,6 @@
 //
 
 #include "MSAppSettings.hpp"
-#include "ofxXmlSettings.h"
 
 const static string STR_TAG_MAIN                    = "AppSettings";
 
@@ -32,8 +31,6 @@ const static int    DEFAULT_CLICKEFFECTRADIUS       = 20;
 
 bool MSAppSettings::loadFile(string filename)
 {
-    ofxXmlSettings settings;
-
     bool loaded = settings.loadFile(filename);
     if (loaded)
     {
@@ -77,7 +74,6 @@ bool MSAppSettings::loadFile(string filename)
 
 void MSAppSettings::createSettingsFile(string filename)
 {
-    ofxXmlSettings settings;
     settings.setValue(STR_TAG_MAIN + ":" + STR_TAG_RESOLUMEHOST, DEFAULT_RESOLUMEHOST);
     settings.setValue(STR_TAG_MAIN + ":" + STR_TAG_RESOLUMEPORT, DEFAULT_RESOLUMEPORT);
     settings.setValue(STR_TAG_MAIN + ":" + STR_TAG_MYOPORT, DEFAULT_MYOPORT);

@@ -57,8 +57,10 @@ void ofApp::setup()
         laserGui.add(laser.redParams);
         laserGui.add(laser.greenParams);
         laserGui.add(laser.blueParams);
-        laserGui.setWidthElements(LASERSETTINGS_WIDTH);
+//        laserGui.setWidthElements(LASERSETTINGS_WIDTH);
         laserGui.loadFromFile(LASERSETTINGS_FILENAME);
+        
+        laser.warp.loadSettings();
     }
 
     // Facade
@@ -68,24 +70,6 @@ void ofApp::setup()
         facadeParams.add(facadeY.set("Y", 0, 0, ofGetHeight()));
         facadeParams.add(facadeW.set("Width", ofGetWidth()/2, 0, ofGetWidth()));
         facadeParams.add(facadeH.set("Height", ofGetHeight()/2, 0, ofGetWidth()));
-
-//        parameters.setName("Laser Manager");
-//
-//        connectButton.set("Etherdream connect");
-//        connectButton.addListener(this, &Manager ::connectButtonPressed);
-//
-//        //parameters.add(connectButton.set("connect etherdream", false));
-//
-//        //parameters.add(etherdreamStatus.set("", "test"));
-//
-//        parameters.add(intensity.set("intensity", 1, 0, 1));
-//
-//        parameters.add(testPattern.set("test pattern", 0, 0, numTestPatterns));
-//        //parameters.add(delay.set("sync delay", 0, 0, 0.4));
-//        parameters.add(pps.set("points per second", 30000, 5000, 100000));
-//        
-//        pps.addListener(this, &Manager ::roundPPS);
-
 
         facadeGui.setup(FACADESETTINGS_TITLE, FACADESETTINGS_FILENAME);
         facadeGui.add(facadeParams);
@@ -220,6 +204,7 @@ void ofApp::draw()
 
 void ofApp::exit()
 {
+    if (laserEnabled) laser.warp.saveSettings();
 //    if (laserEnabled) laserGui.saveToFile(LASERSETTINGS_FILENAME);
 }
 
