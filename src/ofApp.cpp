@@ -173,7 +173,7 @@ void ofApp::update()
         if (deltaTime < clickEffectTime) {
             float radius = ofMap(deltaTime, 0, clickEffectTime, clickEffectRadius, 0);
 //            float radius = explosionRadius * (deltaTime / explosionMaxTime);
-            laser.addLaserCircle(ofPoint(clickEffectX, clickEffectY), radius, ofColor::red);
+            laser.addLaserCircle(ofPoint(clickEffectX, clickEffectY), radius, ofColor::green);
         } else {
             isDoingClickEffect = false;
         }
@@ -411,7 +411,7 @@ void ofApp::setStateWindows()
 void ofApp::showLaserEffect(int effectnum)
 {
     for (int i=0; i<laserPolylines.size(); ++i) {
-        laser.addLaserPolyline(laserPolylines[i], ofColor::red);
+        laser.addLaserPolyline(laserPolylines[i], ofColor::green);
     }
 }
 
@@ -449,7 +449,7 @@ void ofApp::coordinatesToLaser(int x, int y)
     if (poly.size() > laserLength)
         poly.getVertices().erase(poly.getVertices().begin());
 
-    poly.addVertex(x, y);
+    poly.addVertex(ofMap(x, 0, ofGetWidth(), ofGetWidth()-1, 0), y);
 }
 
 ///--------------------------------------------------------------

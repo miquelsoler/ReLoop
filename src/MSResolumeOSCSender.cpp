@@ -46,6 +46,13 @@ void MSResolumeOSCSender::startGenre(RLGenreIndex genreIndex)
         layersStatus.push_back(false);
 
     currentGenre = genreIndex;
+    
+    ofxOscMessage msg;
+    msg.setAddress("/track6/connect");
+    msg.addIntArg(1);
+    oscSender.sendMessage(msg);
+    
+    cout << "Sending /track6/connect 1" << endl;
 }
 
 void MSResolumeOSCSender::stopGenre()
@@ -55,11 +62,12 @@ void MSResolumeOSCSender::stopGenre()
         layersStatus.push_back(false);
 
     ofxOscMessage msg;
-    msg.setAddress("/composition/disconnectall");
+    msg.setAddress("/track5/connect");
+//    msg.setAddress("/composition/disconnectall");
     msg.addIntArg(1);
     oscSender.sendMessage(msg);
 
-    cout << "Sending STOP GENRE: " << msg.getAddress() << " 1" << endl;
+    cout << "/track5/connect 1" << endl;
 
     currentGenre = GenreNone;
 }
@@ -80,7 +88,10 @@ void MSResolumeOSCSender::startWindow(unsigned int numWindow)
     ofxOscMessage msg;
     stringstream address;
 
-    int layer = NUM_WINDOWS - numWindow + 1;
+    cout << "Num window " << numWindow << endl;
+    
+//    int layer = NUM_WINDOWS - numWindow + 1;
+    int layer = numWindow + 1;
 
     address << "/layer" << layer << "/clip" << currentGenre << "/connect";
     msg.setAddress(address.str());

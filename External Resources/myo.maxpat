@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 175.0, 79.0, 1630.0, 963.0 ],
+		"rect" : [ 122.0, 94.0, 1630.0, 963.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -1318,7 +1318,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 880.5, 743.0, 95.0, 22.0 ],
 					"style" : "",
-					"text" : "148.394531"
+					"text" : "-89.29244"
 				}
 
 			}
@@ -1384,7 +1384,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 765.0, 739.0, 89.0, 22.0 ],
 					"style" : "",
-					"text" : "968.945312"
+					"text" : "944.470215"
 				}
 
 			}
@@ -3710,7 +3710,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 154.0, 277.0, 147.0, 22.0 ],
+									"patching_rect" : [ 171.0, 317.0, 147.0, 22.0 ],
 									"style" : "",
 									"text" : "udpsend 127.0.0.1 30302"
 								}
@@ -4567,7 +4567,7 @@
 									"cursor_shape" : "bar",
 									"cursor_size" : 3,
 									"cursor_visible" : 1,
-									"domain_bounds" : [ -0.0, 1.1 ],
+									"domain_bounds" : [ 0.0, 1.1 ],
 									"domainruler_bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"domainruler_fgcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"domainruler_grid" : 0,
@@ -8250,7 +8250,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 424.0, 294.0, 123.0, 22.0 ],
 					"style" : "",
-					"text" : "unknown"
+					"text" : "rest"
 				}
 
 			}
