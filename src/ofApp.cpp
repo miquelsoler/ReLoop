@@ -3,22 +3,23 @@
 #include "Defines.h"
 #include "MsAppSettings.hpp"
 
-static const string STR_APPSETTINGS_FILENAME = "AppSettings.xml";
+static const string APPSETTINGS_FILENAME = "AppSettings.xml";
 
-static const string STR_LASERSETTINGS_FILENAME = "LaserSettings.xml";
-static const int LASER_GUI_WIDTH = 240;
+static const string LASERSETTINGS_TITLE = "Laser";
+static const string LASERSETTINGS_FILENAME = "LaserSettings.xml";
+static const int LASERSETTINGS_WIDTH = 240;
 
-static const string STR_FACADEGUI_TITLE = "Facade";
-static const string STR_FACADESETTINGS_FILENAME = "FacadeSettings.xml";
+static const string FACADESETTINGS_TITLE = "Facade";
+static const string FACADESETTINGS_FILENAME = "FacadeSettings.xml";
 
-static const float GEN_TOP_WIDTH = 0.321667;
-static const float GEN_TOP_HEIGHT = 0.117895;
-static const float GEN_BOTTOM_WIDTH = 0.186667;
-static const float GEN_BOTTOM_HEIGHT = 0.203158;
+static const float AREA_GEN_TOP_WIDTH = 0.321667;
+static const float AREA_GEN_TOP_HEIGHT = 0.117895;
+static const float AREA_GEN_BOTTOM_WIDTH = 0.186667;
+static const float AREA_GEN_BOTTOM_HEIGHT = 0.203158;
 
-static const float WDW_WIDTH = 0.088333;
-static const float WDW_HEIGHT = 0.097895;
-static const float WDW_Y = 0.101053;
+static const float AREA_WDW_WIDTH = 0.088333;
+static const float AREA_WDW_HEIGHT = 0.097895;
+static const float AREA_WDW_Y = 0.101053;
 
 ///--------------------------------------------------------------
 
@@ -28,7 +29,7 @@ void ofApp::setup()
 
     // Load app settings
     {
-        MSAppSettings::getInstance().loadFile(STR_APPSETTINGS_FILENAME);
+        MSAppSettings::getInstance().loadFile(APPSETTINGS_FILENAME);
 
         resolumeHost = MSAppSettings::getInstance().getResolumeHost();
         resolumePort = MSAppSettings::getInstance().getResolumePort();
@@ -51,15 +52,13 @@ void ofApp::setup()
         laser.setup(laserWidth, laserHeight);
         laser.connectToEtherdream();
 
-        laserGui.setup();
+        laserGui.setup(LASERSETTINGS_TITLE, LASERSETTINGS_FILENAME);
         laserGui.add(laser.parameters);
-
         laserGui.add(laser.redParams);
         laserGui.add(laser.greenParams);
         laserGui.add(laser.blueParams);
-        laserGui.setWidthElements(LASER_GUI_WIDTH);
-
-        laserGui.loadFromFile(STR_LASERSETTINGS_FILENAME);
+        laserGui.setWidthElements(LASERSETTINGS_WIDTH);
+        laserGui.loadFromFile(LASERSETTINGS_FILENAME);
     }
 
     // Facade
@@ -88,9 +87,9 @@ void ofApp::setup()
 //        pps.addListener(this, &Manager ::roundPPS);
 
 
-        facadeGui.setup(STR_FACADEGUI_TITLE, STR_FACADESETTINGS_FILENAME);
+        facadeGui.setup(FACADESETTINGS_TITLE, FACADESETTINGS_FILENAME);
         facadeGui.add(facadeParams);
-        facadeGui.loadFromFile(STR_FACADESETTINGS_FILENAME);
+        facadeGui.loadFromFile(FACADESETTINGS_FILENAME);
     }
 
     // OSC
@@ -104,25 +103,25 @@ void ofApp::setup()
         // Genre Areas
         {
             // Up-left
-            genreAreas.push_back(MSActiveArea(0, 0.054167, 0.222105, GEN_TOP_WIDTH, GEN_TOP_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(0, 0.054167, 0.222105, AREA_GEN_TOP_WIDTH, AREA_GEN_TOP_HEIGHT, W_SCALE));
             // Up-right
-            genreAreas.push_back(MSActiveArea(1, 0.620000, 0.222105, GEN_TOP_WIDTH, GEN_TOP_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(1, 0.620000, 0.222105, AREA_GEN_TOP_WIDTH, AREA_GEN_TOP_HEIGHT, W_SCALE));
             // Down-left
-            genreAreas.push_back(MSActiveArea(2, 0.054167, 0.449474, GEN_BOTTOM_WIDTH, GEN_BOTTOM_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(2, 0.054167, 0.449474, AREA_GEN_BOTTOM_WIDTH, AREA_GEN_BOTTOM_HEIGHT, W_SCALE));
             // Down-right
-            genreAreas.push_back(MSActiveArea(3, 0.755833, 0.449474, GEN_BOTTOM_WIDTH, GEN_BOTTOM_HEIGHT, W_SCALE));
+            genreAreas.push_back(MSActiveArea(3, 0.755833, 0.449474, AREA_GEN_BOTTOM_WIDTH, AREA_GEN_BOTTOM_HEIGHT, W_SCALE));
         }
 
         // Window Areas
         {
-            windowAreas.push_back(MSActiveArea(0, 0.008333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(1, 0.133333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(2, 0.260000, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(3, 0.388333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(4, 0.515000, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(5, 0.640000, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(6, 0.763333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
-            windowAreas.push_back(MSActiveArea(7, 0.888333, WDW_Y, WDW_WIDTH, WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(0, 0.008333, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(1, 0.133333, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(2, 0.260000, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(3, 0.388333, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(4, 0.515000, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(5, 0.640000, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(6, 0.763333, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
+            windowAreas.push_back(MSActiveArea(7, 0.888333, AREA_WDW_Y, AREA_WDW_WIDTH, AREA_WDW_HEIGHT, W_SCALE));
         }
     }
 
@@ -219,7 +218,7 @@ void ofApp::draw()
 
 void ofApp::exit()
 {
-//    if (laserEnabled) laserGui.saveToFile(STR_LASERSETTINGS_FILENAME);
+//    if (laserEnabled) laserGui.saveToFile(LASERSETTINGS_FILENAME);
 }
 
 ///--------------------------------------------------------------
