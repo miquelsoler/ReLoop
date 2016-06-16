@@ -154,11 +154,13 @@ void ofApp::update()
                 coordinatesToLaser(laserX, laserY);
         }
         else if(m.getAddress() == "/laser/start") {
+            cout << ">>> Received /laser/start" << endl;
 //            laserX = m.getArgAsInt32(0);
 //            laserY = m.getArgAsInt32(1);
             startLaser(laserX, laserY);
         }
         else if (m.getAddress() == "/laser/stop") {
+            cout << ">>> Received /laser/stop" << endl;
             pickArea(laserX, laserY);
 ////            laserX = m.getArgAsInt32(0);
 ////            laserY = m.getArgAsInt32(1);
