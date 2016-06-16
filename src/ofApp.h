@@ -91,14 +91,12 @@ private:
 
     // Facade
     ofImage facadeImage;
-
+    bool showFacade = true;
     ofxPanel facadeGui;
-
     ofParameterGroup facadeParams;
     ofParameter<int> facadeX;
     ofParameter<int> facadeY;
     ofParameter<int> facadeW;
     ofParameter<int> facadeH;
-
-    bool showFacade = true;
+    bool showFacadeGui = true;
 };

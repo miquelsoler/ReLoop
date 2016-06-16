@@ -212,14 +212,14 @@ void ofApp::draw()
         laserGui.draw();
     }
 
-    facadeGui.draw();
+    if (showFacadeGui) facadeGui.draw();
 }
 
 ///--------------------------------------------------------------
 
 void ofApp::exit()
 {
-    if (laserEnabled) laserGui.saveToFile(STR_LASERSETTINGS_FILENAME);
+//    if (laserEnabled) laserGui.saveToFile(STR_LASERSETTINGS_FILENAME);
 }
 
 ///--------------------------------------------------------------
@@ -231,7 +231,10 @@ void ofApp::keyReleased(int key)
         case '1':   setStateGenre(); break;
         case '2':   setStateWindows(); break;
 //        case '3':   setStateEnd(); break;
-        case 'g':   showLaserGui = !showLaserGui; break;
+        case 'g':
+            showLaserGui = !showLaserGui;
+            showFacadeGui = !showFacadeGui;
+            break;
         case 'f':   showFacade = !showFacade; break;
         default:    break;
     }
